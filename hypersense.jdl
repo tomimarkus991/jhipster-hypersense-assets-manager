@@ -1,0 +1,180 @@
+enum EmployeeDocumentType {
+    PASSPORT,
+    ISIKUKOOD,
+    ID
+}
+
+enum Gender {
+    MALE,
+    FEMALE
+}
+
+enum BusinessUnitName {
+    IT,
+    LEGAL,
+    LOGISTICS,
+    FINANCE,
+    MARKETING,
+    HR
+}
+
+enum TeamName {
+    SNOW,
+    WATER,
+    FIRE
+}
+
+enum EmployeeType {
+    CANDIDATE,
+    LONG_TERM_CONTRACT,
+    SHORT_TERM_CONTRACT,
+    INTERN,
+    EXTERNAL_EMPLOYEE,
+    MATERNITY_LEAVE,
+    FIRED,
+    RESIGNED,
+    QUIT
+}
+
+enum JobLevel {
+    JUNIOR,
+    MIDDLE,
+    SENIOR,
+    TEAM_LEAD,
+    EXECUTIVE,
+    CONSULTANT,
+    ASSISTANT,
+    SERVICE,
+    SPECIALIST,
+    MANAGER
+}
+
+enum WorkingHours {
+    FULL_TIME,
+    PART_TIME
+}
+
+enum CostCenter {
+    COSTCENTER1,
+    COSTCENTER2,
+    COSTCENTER3
+}
+
+enum EducationLevel {
+    PHD
+    MASTER,
+    BACHELOR,
+    MBA,
+    HIGH_SCHOOL,
+    NOT_SPECIFIED
+}
+
+enum Certifications {
+    JAVA_CERTIFICATION,
+    ORACLE_DATABASE,
+    CISCO,
+    OPENSHIFT,
+    MICROSOFT,
+    SCRUMMASTER,
+    SAP
+}
+
+enum RiskOfLoss {
+    LOW,
+    MEDIUM,
+    HIGH,
+    NOT_SPECIFIED
+}
+
+enum ReadinessForPromotion {
+    READY_NOW,
+    READY_IN_6_MONTHS,
+    READY_IN_1_YEAR,
+    READY_IN_2_YEARS,
+    NOT_SPECIFIED
+}
+
+enum ProbationPeriod {
+    IN_PROGRESS,
+    PASSED_SUCCESSFULLY,
+    PASSED_UNSUCCESSFULLY
+}
+
+enum DisabilityStatus {
+    HEARING_LOSS,
+    VISUAL_IMPAIRMENT,
+    SPEECH,
+    MENTAL_HEALTH,
+    AUTISM,
+    PHYSICAL,
+    MOBILITY,
+    NOT_SPECIFIED
+}
+
+enum WorkPlace {
+    HOME,
+    OFFICE,
+    REMOTE
+}
+
+enum Referral {
+    EMPLOYEE,
+    AGENCY,
+    NOT_SPECIFIED
+}
+
+enum HobbyGroup {
+    FOOTBALL,
+    MUSICIAN,
+    TABLE_TENNIS,
+    BASKETBALL,
+    YOGA
+}
+
+entity Employee {
+    employeeDocumentType EmployeeDocumentType required
+    documentNumber UUID required
+    firstName String required
+    lastName String required
+    phone String required
+    gender Gender required
+    birthDate LocalDate required
+    citizenship String required
+    businessUnitName BusinessUnitName required
+    teamName TeamName required
+    employeeType EmployeeType required
+    startDate LocalDate required
+    endDate LocalDate
+    jobTitle String required
+    jobLevel JobLevel required
+    jobLevelIndicator Integer required min(1) max(4)
+    workingHours WorkingHours required
+    costCenter CostCenter required
+    grossSalary Integer required
+    workOverTime Boolean
+    educationLevel EducationLevel required
+    certifications Certifications // List<Certification>
+    riskOfLoss RiskOfLoss
+    readinessForPromotion ReadinessForPromotion 
+    probationPeriod ProbationPeriod
+    disabilityStatus DisabilityStatus required
+    workPlace WorkPlace required
+    contractDue LocalDate
+    referral Referral required
+    hobbyGroup HobbyGroup
+    userPic String
+    notes String // List<Note>
+}
+
+entity Vendor {
+    vendorName String required
+    address String
+    phone String
+    webSite String
+    contactName String
+    emailAddress String pattern(/^[a-z0-9]+@[a-z]+\.[a-z]{2,3}/)
+    vendorType String
+    description String
+    ratePerHour Double
+    // "customFields": [{"Invoices": [4,16,38]} ],
+}
