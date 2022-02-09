@@ -130,7 +130,7 @@ enum HobbyGroup {
     BASKETBALL,
     YOGA
 }
-
+// @? is Employee a user HAM-47
 entity Employee {
     employeeDocumentType EmployeeDocumentType required
     documentNumber UUID required
@@ -182,7 +182,6 @@ entity Note {
 entity Location {
     title String required    
     address String
-    parentLocation String
     worker String
     team String // @? team entity or ids or name?
     vendor String required
@@ -194,9 +193,26 @@ entity Location {
     createdAt LocalDate
     createdBy String
     teamManager String
+    isActive Boolean
 }
 
-entity SubLocation {
+entity SubLocation { // @? extend location? jhipster does not support inheritance
+    title String required    
+    address String
+    parentLocation String // @? same as parentId?
+    parentId String
+    worker String
+    team String // @? team entity or ids or name?
+    vendor String required
+    customer String required
+    // includeMap coordinates (checkbox) Boolean?
+    // customData (custom properties)
+    latitude Double
+    logitude Double
+    createdAt LocalDate
+    createdBy String
+    teamManager String
+
     building String
     floor String
     workingArea String
