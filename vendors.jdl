@@ -1,0 +1,12 @@
+entity Vendor {
+    vendorName String required
+    address String
+    phone String
+    webSite String
+    contactName String
+    emailAddress String pattern(/^[a-z0-9]+@[a-z]+\.[a-z]{2,3}/)
+    vendorType String
+    description String
+    ratePerHour Double
+    // "customFields": [{"Invoices": [4,16,38]} ],
+}

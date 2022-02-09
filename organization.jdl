@@ -145,15 +145,17 @@ entity Employee {
     employeeType EmployeeType required
     startDate LocalDate required
     endDate LocalDate
-    jobTitle String required
+    jobTitle String required // @? add enums
     jobLevel JobLevel required
     jobLevelIndicator Integer required min(1) max(4)
     workingHours WorkingHours required
     costCenter CostCenter required
-    grossSalary Integer required
+    grossSalary Integer required // salary update date (this year|last year|2+year)
+                                 // @? make an entity of salary that has all salary fields + updatedAt
+    salaryUpdateDate LocalDate
     workOverTime Boolean
     educationLevel EducationLevel required
-    certifications Certifications // List<Certification>
+    certifications Certifications
     riskOfLoss RiskOfLoss
     readinessForPromotion ReadinessForPromotion 
     probationPeriod ProbationPeriod
@@ -162,19 +164,58 @@ entity Employee {
     contractDue LocalDate
     referral Referral required
     hobbyGroup HobbyGroup
-    userPic String
-    notes String // List<Note>
+    userPic String // @? rename to photo? 
+    password String
+    availableVacationDays Integer
+    corporateEmail String
+    budgetAvailableForEducation Integer
+    medicalCheckUpDueDate Boolean // due date or to date
+    isActive Boolean
+    timezone String // @? timezone is not under create employee
 }
 
-entity Vendor {
-    vendorName String required
+entity Note {
+    title String required
+    content String required
+}
+
+entity Location {
+    title String required    
     address String
-    phone String
-    webSite String
-    contactName String
-    emailAddress String pattern(/^[a-z0-9]+@[a-z]+\.[a-z]{2,3}/)
-    vendorType String
-    description String
-    ratePerHour Double
-    // "customFields": [{"Invoices": [4,16,38]} ],
+    parentLocation String
+    worker String
+    team String // @? team entity or ids or name?
+    vendor String required
+    customer String required
+    // includeMap coordinates (checkbox) Boolean?
+    // customData (custom properties)
+    latitude Double
+    logitude Double
+    createdAt LocalDate
+    createdBy String
+    teamManager String
+}
+
+entity SubLocation {
+    building String
+    floor String
+    workingArea String
+}
+
+entity Team {
+    teamName String required
+    teamDescription String
+    teamUsers String // @? team entity or ids or name?
+    createdAt LocalDate required
+    createdBy String
+    teamManager String
+}
+
+/**
+ * One to many relationship.
+ */
+relationship OneToMany {
+    Employee to Note{employee}
+    Location to SubLocation{location} // location can have many sublocations
+    SubLocation to SubLocation{subLocation} // sublocation can have many sublocations
 }
